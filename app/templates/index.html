@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script defer src="https://unpkg.com/htmx.org@1.9.2"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+  <title>Кликер</title>
+</head>
+
+<body>
+  <header>
+    <h1>Кликер</h1>
+    <p>
+      Помогите клиентам быстро найти вашу страницу в интернете. Благодаря короткой ссылке клиентам не придётся видеть
+      длинные url-адреса занимающие много места. Достаточно скопировать ссылку сервиса в буфер обмена.
+    </p>
+  </header>
+
+  <main>
+    <section>
+      <form novalidate hx-post="{{ url_for('index') }}" hx-target="body" hx-swap="outerHTML">
+        {{ form.csrf_token }}
+        {{ form.original_url }}
+        {{ form.submit }}
+      </form>
+
+      {% for error in form.original_url.errors %}
+      <strong class="error">
+        {{ error }}
+      </strong>
+      {% endfor %}
+      <br>
+      <br>
+    </section>
+
+
+    <table>
+      <thead>
+        <tr>
+          <th>Айди</th>
+          <th>Клики</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for url in urls %}
+        <tr>
+          <td>
+            <a href="{{ url_for('get_short', short_url=url.short_url) }}">{{ url.short_url }}</a>
+          </td>
+          <td>
+            <code>{{ url.clicks }}</code>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </main>
+
+  <footer>
+    <p>&copy; 2008–2023</p>
+  </footer>
+</body>
+
+</html>

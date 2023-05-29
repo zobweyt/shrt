@@ -1,0 +1,33 @@
+@import url(https://fonts.cdnfonts.com/css/sf-pro-display);
+
+body {
+  font-family: "SF Pro Display";
+  display: flex;
+  flex-direction: column;
+  min-height: 95vh;
+}
+
+main {
+  flex: 1;
+}
+
+p {
+  text-align: justify;
+}
+
+form {
+  width: 100%;
+  display: flex;
+}
+
+input {
+  width: 100%;
+}
+
+input#submit {
+  width: auto;
+}
+
+.error {
+  color: lightcoral;
+}
